@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import Modal from '../../components/UI/Modal/Modal';
 import Aux from '../Aux';
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return (props) => {
-
     const [error, setError] = useState(null);
+    const willMount = useRef(true);
 
-    useEffect(() => {
+    const errorConfirmedHandler = () => {
+      setError(null);
+    }
+
+    if(willMount.current) {
       axios.interceptors.request.use(req => {
         setError(null);
         return req;
@@ -17,10 +21,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
       axios.interceptors.response.use(null, error => {
         setError(error);
       });
-    }, []);
 
-    const errorConfirmedHandler = () => {
-      setError(null);
+      willMount.current = false;
     }
 
     return (
