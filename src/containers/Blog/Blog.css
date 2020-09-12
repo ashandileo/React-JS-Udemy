@@ -16,6 +16,7 @@
     color: black
 }
 
-.Blog  a:hover {
+.Blog  a:hover,
+.Blog a.active {
     color: orange;
 }
