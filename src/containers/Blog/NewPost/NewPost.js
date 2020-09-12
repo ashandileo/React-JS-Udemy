@@ -21,8 +21,9 @@ class NewPost extends Component {
 
         axios.post('/posts', data)
             .then(response => {
-                console.log(response)
-                this.setState({ submitted: true });
+                console.log(response);
+                this.props.history.push('/posts');
+                // this.setState({ submitted: true });
             });
     }
 
@@ -33,7 +34,7 @@ class NewPost extends Component {
     render () {
         return (
             <div className="NewPost">
-                {this.state.submitted && <Redirect to="/posts" />}
+                {/* {this.state.submitted && <Redirect to="/posts" />} */}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
