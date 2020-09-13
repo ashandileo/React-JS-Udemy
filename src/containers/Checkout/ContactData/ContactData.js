@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
+
 import classes from './ContactData.css';
 import axios from '../../../axios-orders';
 
@@ -53,10 +56,10 @@ class ContactData extends Component {
           <Spinner />
         ) : (
           <form>
-            <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
-            <input className={classes.Input} type="text" name="email" placeholder="Your Mail" />
-            <input className={classes.Input} type="text" name="street" placeholder="Street" />
-            <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
+            <Input type="text" name="name" placeholder="Your Name" />
+            <Input type="text" name="email" placeholder="Your Mail" />
+            <Input type="text" name="street" placeholder="Street" />
+            <Input type="text" name="postal" placeholder="Postal Code" />
             <Button
               btnType="Success"
               clicked={this.orderHandler}
