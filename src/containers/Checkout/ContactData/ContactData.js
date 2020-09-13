@@ -85,6 +85,15 @@ class ContactData extends Component {
   }
 
   render() {
+    const formElementsArray = [];
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key]
+      });
+    }
+    console.log("ContactData -> render -> formElementsArray", formElementsArray)
+
     return (
       <div className={classes.ContactData}>
         <h4>Enter your Contact Data</h4>
@@ -92,14 +101,16 @@ class ContactData extends Component {
           <Spinner />
         ) : (
           <form>
-            <Input elementType="..." elementConfig="..." value="..." />
-            <Input inputtype="input" type="text" name="email" placeholder="Your Mail" />
-            <Input inputtype="input" type="text" name="street" placeholder="Street" />
-            <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
+            {formElementsArray.map(formElement => (
+              <Input
+                key={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value} />
+            ))}
             <Button
               btnType="Success"
-              clicked={this.orderHandler}
-            >
+              clicked={this.orderHandler}>
               Order
             </Button>
           </form>
