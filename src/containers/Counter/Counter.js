@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
@@ -26,6 +27,7 @@ class Counter extends Component {
     }
 
     render () {
+        console.log(this.props)
         return (
             <div>
                 <CounterOutput value={this.state.counter} />
@@ -38,4 +40,11 @@ class Counter extends Component {
     }
 }
 
-export default Counter;
+const mapStateToProps = state => {
+    console.log("state", state)
+    return {
+        ctr: state.counter
+    }
+}
+
+export default connect(mapStateToProps)(Counter); //nangkep state dari fungsi connect ke propss
