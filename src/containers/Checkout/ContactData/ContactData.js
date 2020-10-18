@@ -8,6 +8,8 @@ import Input from '../../../components/UI/Input/Input';
 import classes from './ContactData.css';
 import axios from '../../../axios-orders';
 
+import { connect } from 'react-redux';
+
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -124,7 +126,7 @@ class ContactData extends Component {
 
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.price.toFixed(2),
+      price: this.props.totalPrice.toFixed(2),
       orderData: formData
     }
 
@@ -198,4 +200,11 @@ class ContactData extends Component {
   }
 }
 
-export default withRouter(ContactData);
+const mapStateToProps = state => {
+  return {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(ContactData));

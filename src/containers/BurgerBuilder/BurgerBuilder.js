@@ -40,21 +40,10 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    const queryParams = [];
-    for (let i in this.state.ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
-    }
-    queryParams.push('price=' + this.props.totalPrice);
-    const queryString = queryParams.join('&');
-
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
-    });
+    this.props.history.push('/checkout');
   }
 
   componentDidMount() {
-    console.log(this.props)
     axios.get('https://react-my-burger-aa3cc.firebaseio.com/ingredients.json')
       .then(res => {
       console.log("BurgerBuilder -> componentDidMount -> res", res)
