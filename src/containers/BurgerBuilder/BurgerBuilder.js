@@ -16,8 +16,6 @@ class BurgerBuilder extends Component {
 
   state = {
     purchasing: false,
-    loading: false,
-    error: false
   }
 
   updatePurchaseState = (ingredients) => {
@@ -44,14 +42,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://react-my-burger-aa3cc.firebaseio.com/ingredients.json')
-      .then(res => {
-      console.log("BurgerBuilder -> componentDidMount -> res", res)
-        this.setState({ingredients: res.data});
-      })
-      .catch(error => {
-        this.setState({error: true});
-      });
+    this.props.onInitIngredients()
   }
   
   render() {
@@ -64,7 +55,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? <p>Sorry something went wrong!</p> : <Spinner />
+    let burger = this.props.error ? <p>Sorry something went wrong!</p> : <Spinner />
 
     if(this.props.ingredients) {
       burger = (
@@ -89,10 +80,6 @@ class BurgerBuilder extends Component {
           purchaseContinued={this.purchaseContinueHandler}
         />
       );
-
-      if(this.state.loading) {
-        orderSummary = <Spinner />;
-      }
     }
 
     return (
@@ -109,14 +96,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     ingredients: state.ingredients,
-    totalPrice: state.totalPrice
+    totalPrice: state.totalPrice,
+    error: state.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: ingredientName => dispatch(actionCreators.addIngredient(ingredientName)),
-    onIngredientRemoved: ingredientName => dispatch(actionCreators.removeIngredient(ingredientName))
+    onIngredientRemoved: ingredientName => dispatch(actionCreators.removeIngredient(ingredientName)),
+    onInitIngredients: () => dispatch(actionCreators.initIngredients())
   }
 }
 
