@@ -8,4 +8,4 @@ export {
 export {
   storeResult,
   deleteResult
-} from './results';
+} from './result';
