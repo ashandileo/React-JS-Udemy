@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
-
 import { connect } from 'react-redux';
 
 class Checkout extends Component {
@@ -19,6 +18,7 @@ class Checkout extends Component {
       <div>
         {this.props.ingredients ? (
           <Fragment>
+            {this.props.purchased && <Redirect to="/" />}
             <CheckoutSummary
               ingredients={this.props.ingredients}
               checkoutCancelled={this.checkoutCancelledHandler}
@@ -37,7 +37,8 @@ class Checkout extends Component {
 
 const mapStateToProps = state => {
   return {
-    ingredients: state.burgerBuilder.ingredients
+    ingredients: state.burgerBuilder.ingredients,
+    purchased: state.order.purchased
   }
 }
 
