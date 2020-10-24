@@ -16,7 +16,7 @@ class Orders extends Component {
       <div>
         {this.props.loading
           ? <Spinner />
-          : this.props.orders && this.props.orders.map(order => (
+          : this.props.orders.length > 0 && this.props.orders.map(order => (
           <Order
             key={order.id}
             ingredients={order.ingredients}
