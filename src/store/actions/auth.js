@@ -40,7 +40,7 @@ export const auth = (email, password, isSignup) => {
       })
       data && dispatch(authSuccess(data))
     } catch (error) {
-      dispatch(authFail(error))
+      dispatch(authFail(error.response.data.error))
     }
     
   }
